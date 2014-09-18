@@ -10,6 +10,9 @@ import UIKit
 
 class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var refreshControl: UIRefreshControl!
+    
+    @IBOutlet weak var networkAlert: UILabel!
+    
     @IBOutlet weak var tableView: UITableView!
     var movies: [NSDictionary]=[]
     override func viewDidLoad() {
@@ -29,14 +32,15 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
             })
         })
         
-        var url="http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us"
+        var url="http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=u"
         var request=NSURLRequest(URL: NSURL(string: url))
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse!, data:NSData!, error:NSError!) -> Void in
             var object=NSJSONSerialization.JSONObjectWithData(data, options:nil, error: nil) as NSDictionary
             
             if(object["movies"]==nil)
             {
-                [TWMessageBarManager .sharedInstance() .showMessageWithTitle("Network Error", description: "Invalid URL Connection", type: TWMessageBarMessageTypeError , duration: 10, callback:{self.viewDidLoad()})]
+                self.networkAlert.text="Network Error!"
+               // [TWMessageBarManager .sharedInstance() .showMessageWithTitle("Network Error", description: "Invalid URL Connection", type: TWMessageBarMessageTypeError , duration: 10, callback:{self.viewDidLoad()})]
                 // self.tableView.insertSubview(myAlertView, atIndex: 0)
                // var alert=UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertCon9trollerStyle.Alert)
                 
