@@ -8,5 +8,6 @@ User can pull to refresh the movie list
 used Cocoapods.
 Asynchronous image downloading  implemented using the UIImageView category in the AFNetworking library
 
-Giffile:rotten_tomatoe.gif
+Rotten.gif
+
 =============
